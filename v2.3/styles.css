@@ -1,0 +1,104 @@
+body {
+    font-family: monospace;
+    font-size: 20px;
+    background-color: black;
+    color: white;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+#game-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+}
+
+#character-container {
+    display: grid;
+    grid-template-areas:
+        "head"
+        "upper-body"
+        "lower-body";
+    justify-content: center;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Upper Body */
+#upper-body {
+    display: grid;
+    grid-template-areas: "left-arm torso right-arm";
+    grid-template-columns: 2ch auto 2ch; /* Fixed widths for left-arm and right-arm, auto for torso */
+    justify-items: center; /* Center the content within each grid area */
+}
+
+#left-arm { grid-area: left-arm; }
+#torso { grid-area: torso; }
+#right-arm { grid-area: right-arm; }
+
+/* Lower Body */
+#lower-body {
+    display: grid;
+    grid-template-areas: "left-leg space right-leg";
+    justify-content: center;
+    align-items: center;
+}
+
+#left-leg { grid-area: left-leg; }
+#right-leg { grid-area: right-leg; }
+
+/* Equipment Styling */
+#equipment-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none; /* Ensure the equipment doesn't interfere with clicks */
+    white-space: pre; /* Preserve spacing in ASCII art */
+}
+
+#equipment-head, #equipment-head-shaft, #equipment-leg-shaft {
+    position: absolute;
+    /* text-align: center; */
+}
+
+/* Align Equipment with Right Arm */
+#equipment-arm-shaft {
+    position: relative;
+    top: -10px; /* Adjust this to align with the right arm */
+    left: 10px; /* Adjust this to align with the right arm */
+}
+
+/* Idle Animation (head bobbing) */
+@keyframes idle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+}
+
+#head {
+    animation: idle 1s infinite alternate ease-in-out;
+}
+
+/* Walking Animation */
+@keyframes walk-arms {
+    0%, 100% { transform: rotate(10deg); }
+    50% { transform: rotate(-10deg); }
+}
+
+@keyframes walk-body {
+    0%, 100% { transform: translateX(0.25px); }
+    50% { transform: translateX(-0.25px); }
+}
+
+.walking #left-arm, .walking #right-arm {
+    animation: walk-arms 0.3s infinite alternate;
+}
+
+.walking #torso {
+    animation: walk-body 0.3s infinite alternate;
+}
