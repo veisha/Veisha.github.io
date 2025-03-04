@@ -17,9 +17,16 @@ body {
     transform: translate(-50%, -50%);
 }
 
-#arms, #legs {
+/* ✅ Ensures arms and body stay together */
+#upper-body, #lower-body {
     display: flex;
     justify-content: center;
+    gap: 0; /* Remove extra spacing */
+}
+
+#left-arm, #torso, #right-arm,
+#left-leg, #right-leg {
+    display: inline-block; /* Prevents gaps */
 }
 
 /* ✅ Idle Animation (head bobbing) */
@@ -47,6 +54,6 @@ body {
 .walking #left-arm, .walking #right-arm {
     animation: walk-arms 0.3s infinite alternate;
 }
-.walking #body {
+.walking #torso {
     animation: walk-body 0.3s infinite alternate;
 }
