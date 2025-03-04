@@ -1,0 +1,15 @@
+body {
+    font-family: monospace;
+    /* font-size: 20px; */
+}
+
+.ascii {
+    display: inline-block;
+    white-space: pre;
+    animation: blink 1s infinite alternate;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
