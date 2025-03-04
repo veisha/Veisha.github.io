@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript ASCII Animation</title>
+    <style>
+        body {
+            font-family: monospace;
+            font-size: 20px;
+        }
+        
+        .ascii {
+            white-space: pre;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <pre id="asciiArt" class="ascii">
+  <.·.>
+   /|\
+   / \
+    </pre>
+
+    <script>
+        const frames = [
+            "  <.·.>\n   /|\\\n   / \\",
+            "  <o_o>\n   /|\\\n   / \\",
+            "  <x_x>\n   /|\\\n   / \\",
+            "  <.·.>\n   /|\\\n   / \\"
+        ];
+
+        let index = 0;
+        function animateASCII() {
+            document.getElementById("asciiArt").innerText = frames[index];
+            index = (index + 1) % frames.length;
+        }
+
+        setInterval(animateASCII, 500);
+    </script>
+
+</body>
+</html>
