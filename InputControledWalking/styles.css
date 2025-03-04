@@ -13,3 +13,14 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+/* ✅ Idle breathing effect */
+.idle {
+    animation: idleBreathe 1s infinite alternate ease-in-out;
+}
+
+@keyframes idleBreathe {
+    0%   { letter-spacing: 0px; }
+    50%  { letter-spacing: 0.35px; }
+    100% { letter-spacing: 0px; }
+}

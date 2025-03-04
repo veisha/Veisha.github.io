@@ -4,73 +4,64 @@ let direction = 1; // 1 = right, -1 = left
 const speed = 5;
 const ascii = document.getElementById("movingAscii");
 
-// Idle Frame
+// ✅ Idle Mode (Default)
 const idleFrame = `<...>\n /|\\\n / \\`;
 
-// Walking Frames
+// ✅ Walking Frames
 const framesRight = [
 `<...>   
- /|\\
+ /|\\  
   >\\`, 
 
 `<...>   
- /|\\
+ /|\\  
   |\\`,
 
 `<...>   
- /|\\
-  |>`
+ /|\\  
+  |>`,
 ];
 
 const framesLeft = [
 `<...>   
- /|\\
+ /|\\  
  /<`,
 
 `<...>   
- /|\\
+ /|\\  
  /|`,
 
 `<...>   
- /|\\
- <|`
+ /|\\  
+ <|`,
 ];
 
+// ✅ Movement States
 let frameIndex = 0;
 let moving = { ArrowUp: false, ArrowLeft: false, ArrowDown: false, ArrowRight: false };
 
 // ✅ Set Idle at Start
 ascii.innerText = idleFrame;
+ascii.classList.add("idle");  // Apply idle animation on start
 
 function updatePosition() {
     let moved = false;
-    
-    if (moving.ArrowUp) { 
-        posY -= speed; 
-        moved = true; 
-    }
-    if (moving.ArrowDown) { 
-        posY += speed; 
-        moved = true; 
-    }
-    if (moving.ArrowLeft) { 
-        posX -= speed; 
-        direction = -1; // Last faced left
-        moved = true; 
-    }
-    if (moving.ArrowRight) { 
-        posX += speed; 
-        direction = 1; // Last faced right
-        moved = true; 
-    }
+
+    if (moving.ArrowUp) { posY -= speed; moved = true; }
+    if (moving.ArrowDown) { posY += speed; moved = true; }
+    if (moving.ArrowLeft) { posX -= speed; direction = -1; moved = true; }
+    if (moving.ArrowRight) { posX += speed; direction = 1; moved = true; }
 
     ascii.style.left = `${posX}px`;
     ascii.style.top = `${posY}px`;
 
-    // ✅ If no movement, go idle
+    // ✅ Go Idle If No Movement
     if (!moved) {
         ascii.innerText = idleFrame;
         frameIndex = 0;  // Reset animation
+        ascii.classList.add("idle");  // Reapply idle effect
+    } else {
+        ascii.classList.remove("idle");  // Remove idle effect when moving
     }
 }
 
