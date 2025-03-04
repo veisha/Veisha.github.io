@@ -1,0 +1,15 @@
+body {
+    font-family: monospace;
+    font-size: 20px;
+    overflow: hidden;
+    background-color: black;
+    color: white;
+}
+
+.ascii {
+    white-space: pre;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
