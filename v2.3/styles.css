@@ -62,16 +62,55 @@ body {
     white-space: pre; /* Preserve spacing in ASCII art */
 }
 
-#equipment-head, #equipment-head-shaft, #equipment-leg-shaft {
-    position: absolute;
-    /* text-align: center; */
-}
-
 /* Align Equipment with Right Arm */
 #equipment-arm-shaft {
     position: relative;
     top: -10px; /* Adjust this to align with the right arm */
     left: 10px; /* Adjust this to align with the right arm */
+}
+
+/* Equipment Animation */
+@keyframes sway {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(5deg); }
+    75% { transform: rotate(-5deg); }
+}
+
+.walking #equipment-container {
+    animation: sway 0.5s infinite alternate ease-in-out;
+}
+
+/* Smash Animation */
+@keyframes smash {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(6px); } /* Move down */
+    100% { transform: translateY(0); } /* Return to original position */
+}
+
+#equipment-head, #equipment-head-shaft, #equipment-leg-shaft {
+    position: absolute;
+    /* text-align: center; */
+    animation: smash 1s ease-in-out;
+}
+
+/* Particle Animation */
+@keyframes particle {
+    0% { transform: translateY(0); opacity: 1; }
+    50% { transform: translateY(10px); opacity: 0.5; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Particle Styling */
+#particle {
+    position: absolute;
+    white-space: pre;
+    opacity: 0; /* Start hidden */
+    pointer-events: none; /* Ensure the particle doesn't interfere with clicks */
+    font-size: 12px;
+}
+
+.equipped #particle {
+    animation: particle 1s infinite alternate ease-in-out;
 }
 
 /* Idle Animation (head bobbing) */
