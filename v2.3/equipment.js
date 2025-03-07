@@ -62,53 +62,41 @@ function renderEquipment() {
             particle.style.left = `${relativeLeft + -10}px`; // Adjust this value as needed
         }
 
-        // Trigger smash animation
-        const equipmentHead = document.getElementById("equipment-head");
-        const equipmentHeadShaft = document.getElementById("equipment-head-shaft");
-        const equipmentLegShaft = document.getElementById("equipment-leg-shaft");
-        equipmentHead.classList.add("smash");
-        equipmentHeadShaft.classList.add("smash");
-        equipmentLegShaft.classList.add("smash");
+        // Trigger smash animation only if the character is not moving
+        if (!Object.values(moving).some(value => value)) {
+            const equipmentHead = document.getElementById("equipment-head");
+            const equipmentHeadShaft = document.getElementById("equipment-head-shaft");
+            const equipmentLegShaft = document.getElementById("equipment-leg-shaft");
+            equipmentHead.classList.add("smash");
+            equipmentHeadShaft.classList.add("smash");
+            equipmentLegShaft.classList.add("smash");
 
-        // Trigger particle animation after the smash
-        setTimeout(() => {
-            const particle = document.getElementById("particle");
-            if (particle) { // Check if the particle exists
-                particle.style.opacity = 1;
-                particle.textContent = "  -.    "; // Initial particle frame
-                setTimeout(() => { particle.textContent = " *-.    "; }, 100);
-                setTimeout(() => { particle.textContent = " *-.‾   "; }, 200);
-                setTimeout(() => { particle.textContent = "     ,  "; }, 300);
-                setTimeout(() => { particle.textContent = " *-.‾   "; }, 400);
-                setTimeout(() => { particle.textContent = "·    ,·*"; }, 500);
-                setTimeout(() => { particle.textContent = " *-.    "; }, 600);
-                setTimeout(() => { particle.textContent = "      ·*"; }, 700);
-                setTimeout(() => { particle.textContent = " *-.    "; }, 800);
-                setTimeout(() => { particle.textContent = "      ·*"; }, 900);
-                setTimeout(() => { particle.textContent = " *      "; }, 1000);
-                setTimeout(() => { particle.style.opacity = 0; }, 1000); // Hide particle after animation
-            }
-        }, 400); // Delay particle animation until after the smash
+            // Trigger particle animation after the smash
+            setTimeout(() => {
+                const particle = document.getElementById("particle");
+                if (particle) { // Check if the particle exists
+                    particle.style.opacity = 1;
+                    particle.textContent = "  -.    "; // Initial particle frame
+                    setTimeout(() => { particle.textContent = " *-.    "; }, 50/2);
+                    setTimeout(() => { particle.textContent = " *-.‾   "; }, 100/2);
+                    setTimeout(() => { particle.textContent = "     ,  "; }, 150/2);
+                    setTimeout(() => { particle.textContent = " *-.‾   "; }, 200/2);
+                    setTimeout(() => { particle.textContent = "·    ,·*"; }, 250/2);
+                    setTimeout(() => { particle.textContent = " *-.    "; }, 300/2);
+                    setTimeout(() => { particle.textContent = "      ·*"; }, 350/2);
+                    setTimeout(() => { particle.textContent = " *-.    "; }, 400/2);
+                    setTimeout(() => { particle.textContent = "      ·*"; }, 450/2);
+                    setTimeout(() => { particle.textContent = " *      "; }, 500/2);
+                    setTimeout(() => { particle.style.opacity = 0; }, 500/2); // Hide particle after animation
+                }
+            }, 400); // Delay particle animation until after the smash
+        }
     } else {
         // Remove equipment from the DOM
         if (document.getElementById("equipment-container")) {
             document.getElementById("equipment-container").remove();
         }
     }
-}
-
-// ✅ Toggle Equipment
-function toggleEquipment(equipmentName) {
-    Equipment[equipmentName].equipped = !Equipment[equipmentName].equipped;
-    renderEquipment();
-    renderCharacter();
-}
-
-// ✅ Toggle Equipment
-function toggleEquipment(equipmentName) {
-    Equipment[equipmentName].equipped = !Equipment[equipmentName].equipped;
-    renderEquipment();
-    renderCharacter();
 }
 
 // ✅ Toggle Equipment

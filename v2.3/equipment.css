@@ -1,0 +1,76 @@
+/* Equipment Styles */
+#equipment-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none; /* Ensure the equipment doesn't interfere with clicks */
+    white-space: pre; /* Preserve spacing in ASCII art */
+}
+
+/* Equipment Colors */
+#equipment-head {
+    color: #FFD700; /* Gold color for the head */
+}
+
+#equipment-head-shaft {
+    color: brown; /* Brown color for the head shaft */
+}
+
+#equipment-arm-shaft {
+    color: white; /* Sienna color for the arm shaft */
+}
+
+#equipment-leg-shaft {
+    color: brown; /* Brown color for the leg shaft */
+}
+
+/* Align Equipment with Right Arm */
+#equipment-arm-shaft {
+    position: relative;
+    top: -10px; /* Adjust this to align with the right arm */
+    left: 10px; /* Adjust this to align with the right arm */
+}
+
+/* Equipment Animation */
+@keyframes sway {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(2deg); }
+    75% { transform: rotate(-2deg); }
+}
+
+.walking #equipment-container {
+    animation: sway 0.5s infinite alternate ease-in-out;
+}
+
+/* Smash Animation */
+@keyframes smash {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(6px); } /* Move down */
+    100% { transform: translateY(0); } /* Return to original position */
+}
+
+#equipment-head, #equipment-head-shaft, #equipment-leg-shaft {
+    position: absolute;
+    animation: smash 0.6s ease-in-out;
+}
+
+/* Particle Animation */
+@keyframes particle {
+    0% { transform: translateY(0); opacity: 1; }
+    50% { transform: translateY(10px); opacity: 0.5; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Particle Styling */
+#particle {
+    position: absolute;
+    white-space: pre;
+    opacity: 0; /* Start hidden */
+    pointer-events: none; /* Ensure the particle doesn't interfere with clicks */
+    font-size: 12px;
+    color: #ffffff; /* White color for the particle */
+}
+
+.equipped #particle {
+    animation: particle 1s infinite alternate ease-in-out;
+}
