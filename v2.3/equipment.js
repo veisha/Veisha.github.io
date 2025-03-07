@@ -61,10 +61,11 @@ function renderEquipment() {
             particle.style.top = `${relativeTop + 34}px`; // Adjust this value as needed
             particle.style.left = `${relativeLeft + -10}px`; // Adjust this value as needed
         }
+
+        // Trigger smash animation
         const equipmentHead = document.getElementById("equipment-head");
         const equipmentHeadShaft = document.getElementById("equipment-head-shaft");
         const equipmentLegShaft = document.getElementById("equipment-leg-shaft");
-        // Trigger smash animation
         equipmentHead.classList.add("smash");
         equipmentHeadShaft.classList.add("smash");
         equipmentLegShaft.classList.add("smash");
@@ -72,19 +73,21 @@ function renderEquipment() {
         // Trigger particle animation after the smash
         setTimeout(() => {
             const particle = document.getElementById("particle");
-            particle.style.opacity = 1;
-            particle.textContent = "  -.    "; // Initial particle frame
-            setTimeout(() => { particle.textContent = " *-.    "; }, 100);
-            setTimeout(() => { particle.textContent = " *-.‾   "; }, 200);
-            setTimeout(() => { particle.textContent = "     ,  "; }, 300);
-            setTimeout(() => { particle.textContent = " *-.‾   "; }, 400);
-            setTimeout(() => { particle.textContent = "·    ,·*"; }, 500);
-            setTimeout(() => { particle.textContent = " *-.    "; }, 600);
-            setTimeout(() => { particle.textContent = "      ·*"; }, 700);
-            setTimeout(() => { particle.textContent = " *-.    "; }, 800);
-            setTimeout(() => { particle.textContent = "      ·*"; }, 900);
-            setTimeout(() => { particle.textContent = " *      "; }, 1000);
-            setTimeout(() => { particle.style.opacity = 0; }, 1000); // Hide particle after animation
+            if (particle) { // Check if the particle exists
+                particle.style.opacity = 1;
+                particle.textContent = "  -.    "; // Initial particle frame
+                setTimeout(() => { particle.textContent = " *-.    "; }, 100);
+                setTimeout(() => { particle.textContent = " *-.‾   "; }, 200);
+                setTimeout(() => { particle.textContent = "     ,  "; }, 300);
+                setTimeout(() => { particle.textContent = " *-.‾   "; }, 400);
+                setTimeout(() => { particle.textContent = "·    ,·*"; }, 500);
+                setTimeout(() => { particle.textContent = " *-.    "; }, 600);
+                setTimeout(() => { particle.textContent = "      ·*"; }, 700);
+                setTimeout(() => { particle.textContent = " *-.    "; }, 800);
+                setTimeout(() => { particle.textContent = "      ·*"; }, 900);
+                setTimeout(() => { particle.textContent = " *      "; }, 1000);
+                setTimeout(() => { particle.style.opacity = 0; }, 1000); // Hide particle after animation
+            }
         }, 400); // Delay particle animation until after the smash
     } else {
         // Remove equipment from the DOM
@@ -92,6 +95,13 @@ function renderEquipment() {
             document.getElementById("equipment-container").remove();
         }
     }
+}
+
+// ✅ Toggle Equipment
+function toggleEquipment(equipmentName) {
+    Equipment[equipmentName].equipped = !Equipment[equipmentName].equipped;
+    renderEquipment();
+    renderCharacter();
 }
 
 // ✅ Toggle Equipment
