@@ -30,3 +30,15 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+#fps-display {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    color: white;
+    font-family: Arial, sans-serif;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 5px 10px;
+    border-radius: 5px;
+    z-index: 1000;
+}
