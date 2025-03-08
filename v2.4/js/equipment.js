@@ -1,5 +1,7 @@
-// ✅ Equipment Data
-const Equipment = {
+// equipment.js
+import { characterContainer, renderCharacter, moving } from './character.js';
+
+export const Equipment = {
     codingStaff: {
         head: "[·]",
         headShaft: "Ŧ",
@@ -9,8 +11,8 @@ const Equipment = {
     }
 };
 
-// ✅ Render Equipment
-function renderEquipment() {
+// Render Equipment
+export function renderEquipment() {
     if (Equipment.codingStaff.equipped) {
         // Add equipment to the DOM if not already added
         if (!document.getElementById("equipment-container")) {
@@ -99,8 +101,8 @@ function renderEquipment() {
     }
 }
 
-// ✅ Toggle Equipment
-function toggleEquipment(equipmentName) {
+// Toggle Equipment
+export function toggleEquipment(equipmentName) {
     Equipment[equipmentName].equipped = !Equipment[equipmentName].equipped;
     renderEquipment();
     renderCharacter();

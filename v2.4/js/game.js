@@ -1,20 +1,25 @@
-// ✅ Global Variables
-const characterContainer = document.getElementById("character-container");
+// game.js
+import { renderCharacter, updatePosition } from './character.js';
+import { applyGravity, jump, checkCollision } from './physics.js';
+import { platforms, renderPlatforms } from './environment.js';
 
-let lastTime = 0; // Track the last frame time
+let lastTime = 0;
 
-// ✅ Game Loop using requestAnimationFrame
+// Game loop
 function gameLoop(currentTime) {
     const deltaTime = (currentTime - lastTime) / 1000; // Convert to seconds
     lastTime = currentTime;
 
-    updatePosition(deltaTime); // Pass deltaTime to updatePosition
-    requestAnimationFrame(gameLoop); // Continuously call the game loop
+    applyGravity(deltaTime);
+    checkCollision(platforms);
+    updatePosition(deltaTime);
+    renderPlatforms();
+    requestAnimationFrame(gameLoop);
 }
 
-// ✅ Start the game loop
+// Start the game loop
 requestAnimationFrame(gameLoop);
 
-// ✅ Initial Render
+// Initial Render
 renderCharacter();
-renderEquipment();
+renderPlatforms();

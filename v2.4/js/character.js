@@ -1,5 +1,16 @@
-// ✅ Character Data Storage (Modular & Expandable)
-const Characters = {
+// character.js
+import { Equipment, toggleEquipment } from './equipment.js';
+import { jump } from './physics.js';
+
+// Rest of your character.js code...
+// character.js
+export const characterContainer = document.getElementById("character-container");
+
+if (!characterContainer) {
+    console.error("characterContainer not found in the DOM!");
+}
+
+export const Characters = {
     Veisha: {
         expressions: {
             normal: "<.·.>",
@@ -18,37 +29,42 @@ const Characters = {
 };
 
 // ✅ Default Character Setup
-let activeCharacter = "Veisha";
-let currentExpression = Characters[activeCharacter].expressions.normal;
+export let activeCharacter = "Veisha";
+export let currentExpression = Characters[activeCharacter].expressions.normal;
 
 // ✅ Character Movement and Position
-let posX = window.innerWidth / 2;
-let posY = window.innerHeight / 2;
-const speed = 200; // Pixels per second (adjust as needed)
-let moving = { ArrowUp: false, ArrowDown: false, ArrowLeft: false, ArrowRight: false };
-let frameIndex = 0;
-let direction = 1; // 1 = right, -1 = left
-let expressionTimeout = null;
+export let posX = 150; // Use `let` instead of `const`
+export let posY = 350; // Use `let` instead of `const`
+
+// Setter function for posY
+export function setPosY(value) {
+    posY = value;
+}
+export const speed = 200; // Pixels per second (adjust as needed)
+export let moving = { ArrowLeft: false, ArrowRight: false }; // Export moving
+export let frameIndex = 0;
+export let direction = 1; // 1 = right, -1 = left, export direction
+export let expressionTimeout = null;
 
 // ✅ Walking Frames for Legs (adds spacing)
-const legFramesRight = [
+export const legFramesRight = [
     { left: " ", right: " >\\" },
     { left: " ", right: " |\\" },
     { left: " ", right: "|>" }
 ];
 
-const legFramesLeft = [
+export const legFramesLeft = [
     { left: "/< ", right: " " },
     { left: "/| ", right: " " },
     { left: "<| ", right: " " }
 ];
 
 // ✅ Frame Animation Control
-const frameDelay = 0.1; // Time (in seconds) between frame updates
-let frameTimer = 0; // Tracks time since the last frame update
+export const frameDelay = 0.1; // Time (in seconds) between frame updates
+export let frameTimer = 0; // Tracks time since the last frame update
 
 // ✅ Generates Character
-function renderCharacter() {
+export function renderCharacter() {
     if (!characterContainer.innerHTML) {
         // ✅ First-time setup: Only create elements once
         characterContainer.innerHTML = `
@@ -86,7 +102,7 @@ function renderCharacter() {
 }
 
 // ✅ Changes Expression with Timer
-function changeExpression(expression) {
+export function changeExpression(expression) {
     if (expressionTimeout) clearTimeout(expressionTimeout);
     
     currentExpression = Characters[activeCharacter].expressions[expression];
@@ -104,11 +120,9 @@ function changeExpression(expression) {
 }
 
 // ✅ Updates Character Position & Animation
-function updatePosition(deltaTime) {
+export function updatePosition(deltaTime) {
     let moved = false;
 
-    if (moving.ArrowUp) { posY -= speed * deltaTime; moved = true; }
-    if (moving.ArrowDown) { posY += speed * deltaTime; moved = true; }
     if (moving.ArrowLeft) { posX -= speed * deltaTime; direction = -1; moved = true; }
     if (moving.ArrowRight) { posX += speed * deltaTime; direction = 1; moved = true; }
 
@@ -150,6 +164,7 @@ document.addEventListener("keydown", (event) => {
     if (event.key === "q") changeExpression("questioning");
     if (event.key === "a") changeExpression("alert");
     if (event.key === "e") toggleEquipment("codingStaff"); // Toggle Coding Staff
+    if (event.key === " ") jump(); // Spacebar to jump
 });
 
 document.addEventListener("keyup", (event) => {
