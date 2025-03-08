@@ -24,18 +24,18 @@ export function jump() {
 function checkCollision(platforms) {
     let onPlatform = false;
     platforms.forEach(platform => {
-        if (posX < platform.x + platform.width &&
-            posX + 50 > platform.x &&
-            posY < platform.y + platform.height &&
-            posY + 50 > platform.y) {
+        if (posX + 50 > platform.x + 35 && // Check if the character's right edge is to the right of the platform's left edge
+            posX < platform.x + platform.width + 15 && // Check if the character's left edge is to the left of the platform's right edge
+            posY + 50 > platform.y && // Check if the character's bottom edge is below the platform's top edge
+            posY < platform.y + platform.height) { // Check if the character's top edge is above the platform's bottom edge
             if (velocityY > 0) { // Falling
-                setPosY(platform.y - 50); // Adjust 50 to the height of your character
+                setPosY(platform.y - 35); // Adjust 50 to the height of your character
                 velocityY = 0;
                 onPlatform = true;
             }
         }
     });
-    isOnGround = onPlatform || posY >= window.innerHeight - 50;
+    isOnGround = onPlatform; // Update isOnGround based on collision
 }
 
 export { applyGravity, checkCollision, isOnGround };

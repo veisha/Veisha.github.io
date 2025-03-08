@@ -8,7 +8,9 @@
 .platform {
     position: absolute;
     background-color: greenyellow;
-    border-left: 5px;
+    border-left: 50px;
     border-right: 5px;
     border-color: wheat;
+    margin: 0; /* Ensure no margin */
+    padding: 0; /* Ensure no padding */
 }
