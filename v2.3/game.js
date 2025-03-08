@@ -1,8 +1,19 @@
 // ✅ Global Variables
 const characterContainer = document.getElementById("character-container");
 
-// ✅ Game Loop (Runs Every 100ms)
-setInterval(updatePosition, 100);
+let lastTime = 0; // Track the last frame time
+
+// ✅ Game Loop using requestAnimationFrame
+function gameLoop(currentTime) {
+    const deltaTime = (currentTime - lastTime) / 1000; // Convert to seconds
+    lastTime = currentTime;
+
+    updatePosition(deltaTime); // Pass deltaTime to updatePosition
+    requestAnimationFrame(gameLoop); // Continuously call the game loop
+}
+
+// ✅ Start the game loop
+requestAnimationFrame(gameLoop);
 
 // ✅ Initial Render
 renderCharacter();

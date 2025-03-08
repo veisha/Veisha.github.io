@@ -1,5 +1,8 @@
 todo v2.3.2
 
-make it so that the particle will stay in place and not move with the character
+Make the equipment head modular, so that each color of the characters can be changed.
 
-add colors to the character, and equipment
+Add new animation to the character
+-Expression animation: make a transition animation between expressions
+
+

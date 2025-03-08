@@ -24,7 +24,7 @@ let currentExpression = Characters[activeCharacter].expressions.normal;
 // ✅ Character Movement and Position
 let posX = window.innerWidth / 2;
 let posY = window.innerHeight / 2;
-const speed = 5;
+const speed = 200; // Pixels per second (adjust as needed)
 let moving = { ArrowUp: false, ArrowDown: false, ArrowLeft: false, ArrowRight: false };
 let frameIndex = 0;
 let direction = 1; // 1 = right, -1 = left
@@ -42,6 +42,10 @@ const legFramesLeft = [
     { left: "/| ", right: " " },
     { left: "<| ", right: " " }
 ];
+
+// ✅ Frame Animation Control
+const frameDelay = 0.1; // Time (in seconds) between frame updates
+let frameTimer = 0; // Tracks time since the last frame update
 
 // ✅ Generates Character
 function renderCharacter() {
@@ -100,13 +104,13 @@ function changeExpression(expression) {
 }
 
 // ✅ Updates Character Position & Animation
-function updatePosition() {
+function updatePosition(deltaTime) {
     let moved = false;
 
-    if (moving.ArrowUp) { posY -= speed; moved = true; }
-    if (moving.ArrowDown) { posY += speed; moved = true; }
-    if (moving.ArrowLeft) { posX -= speed; direction = -1; moved = true; }
-    if (moving.ArrowRight) { posX += speed; direction = 1; moved = true; }
+    if (moving.ArrowUp) { posY -= speed * deltaTime; moved = true; }
+    if (moving.ArrowDown) { posY += speed * deltaTime; moved = true; }
+    if (moving.ArrowLeft) { posX -= speed * deltaTime; direction = -1; moved = true; }
+    if (moving.ArrowRight) { posX += speed * deltaTime; direction = 1; moved = true; }
 
     characterContainer.style.left = `${posX}px`;
     characterContainer.style.top = `${posY}px`;
@@ -114,11 +118,19 @@ function updatePosition() {
     if (moved) {
         characterContainer.classList.add("walking");
 
-        // ✅ Use correct walking frames based on direction
-        const frames = direction === 1 ? legFramesRight : legFramesLeft;
-        Characters[activeCharacter].body.leftLeg = frames[frameIndex].left;
-        Characters[activeCharacter].body.rightLeg = frames[frameIndex].right;
-        frameIndex = (frameIndex + 1) % frames.length;
+        // ✅ Update frameTimer
+        frameTimer += deltaTime;
+
+        // ✅ Update leg frames only after frameDelay has passed
+        if (frameTimer >= frameDelay) {
+            frameTimer = 0; // Reset the timer
+
+            // ✅ Use correct walking frames based on direction
+            const frames = direction === 1 ? legFramesRight : legFramesLeft;
+            Characters[activeCharacter].body.leftLeg = frames[frameIndex].left;
+            Characters[activeCharacter].body.rightLeg = frames[frameIndex].right;
+            frameIndex = (frameIndex + 1) % frames.length;
+        }
     } else {
         characterContainer.classList.remove("walking");
 
@@ -126,6 +138,7 @@ function updatePosition() {
         Characters[activeCharacter].body.leftLeg = "/";
         Characters[activeCharacter].body.rightLeg = "\\";
         frameIndex = 0;
+        frameTimer = 0; // Reset the timer when not moving
     }
 
     renderCharacter();
