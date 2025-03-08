@@ -40,6 +40,24 @@ export let posY = 350; // Use `let` instead of `const`
 export function setPosY(value) {
     posY = value;
 }
+
+let savedPosX = posX; // Store the saved X position
+let savedPosY = posY; // Store the saved Y position
+
+// Save character position
+export function savePosition() {
+    savedPosX = posX;
+    savedPosY = posY;
+}
+
+// Restore character position
+export function restorePosition() {
+    posX = savedPosX;
+    posY = savedPosY;
+    characterContainer.style.left = `${posX}px`; // Update the DOM
+    characterContainer.style.top = `${posY}px`; // Update the DOM
+}
+
 export const speed = 200; // Pixels per second (adjust as needed)
 export let moving = { ArrowLeft: false, ArrowRight: false }; // Export moving
 export let frameIndex = 0;
